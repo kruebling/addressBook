@@ -12,11 +12,18 @@ function Address (street, city, state) {
   this.city = city;
   this.state = state;
 };
+function resetFields() {
+  $('input#new-first-name').val('');
+  $('input#new-last-name').val('');
+  $('input#new-street').val('');
+  $('input#new-city').val('');
+  $('input#new-state').val('');
+}
 
 //user Interface Logic
 $(document).ready(function() {
   $("#add-address").click(function() {
-    $("#new-addresses").append('<div class="new-address">' +
+    $("p#new-addresses").append('<div class="new-address">' +
                                  '<div class="form-group">' +
                                    '<label for="new-street">Street</label>' +
                                    '<input type="text" class="form-control new-street">' +
@@ -33,6 +40,7 @@ $(document).ready(function() {
   });
   $('#new-contact').submit(function(event) {
     event.preventDefault();
+    $("#new-addresses").remove();
     var inputtedFirstName = $('input#new-first-name').val();
     var inputtedLastName = $('input#new-last-name').val();
 
@@ -50,6 +58,7 @@ $(document).ready(function() {
     $('ul#contacts').append('<li><span class="contact">' + newContact.fullName() + '</span></li>');
 
     $(".contact").last().click(function() {
+      resetFields();
       $("#show-contact").show();
       $("#show-contact h2").text(newContact.firstName);
       $(".first-name").text(newContact.firstName);
@@ -59,8 +68,5 @@ $(document).ready(function() {
         $("ul#addresses").append("<li>" + address.street + ", " + address.city + " " + address.state + "</li>");
       });
     });
-
-    $('input#new-first-name').val('');
-    $('input#new-last-name').val('');
   });
 });
